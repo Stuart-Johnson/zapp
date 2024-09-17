@@ -1,0 +1,27 @@
+# version: '3.8'
+services:
+  zapp_db:
+    image: postgres:13
+    volumes:
+      - zapp_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: zapp_development
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - zapp_db
+    environment:
+      RAILS_ENV: development
+
+volumes:
+  zapp_postgres_data:
