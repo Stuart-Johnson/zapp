@@ -14,5 +14,39 @@
     %link{href: "/icon.png", rel: "apple-touch-icon"}/
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+
   %body
-    = yield
+    .container-fluid
+      / Top Navbar
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        = link_to "CTL Animal Forest", root_path, class: "navbar-brand"
+        %button.navbar-toggler{ type: "button", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, aria_controls: "navbarNav", aria_expanded: "false", aria_label: "Toggle navigation" }
+          %span.navbar-toggler-icon
+        #navbarNav.collapse.navbar-collapse
+          %ul.navbar-nav.ms-auto
+            %li.nav-item
+              = link_to "Home", root_path, class: "nav-link"
+            %li.nav-item
+              = link_to "TBD", '', class: "nav-link"
+            %li.nav-item
+              = link_to "TBD", '', class: "nav-link"
+
+      .row
+        / Left Sidebar
+        .col-md-2.bg-light
+          %div.d-flex.flex-column.p-3.sidebar
+            %h5 Admin Controls:
+            %ul.nav.nav-pills.flex-column
+              %li.nav-item
+                = link_to "Daily Dashboard", '', class: "nav-link"
+              %li.nav-item
+                = link_to "Diet Plans", '', class: "nav-link"
+              %li.nav-item
+                = link_to "All Animals", animals_path, class: "nav-link"
+              %li.nav-item
+                = link_to "All Foods", foods_path, class: "nav-link"
+
+        / Main Content Area
+        .col-md-10
+          %main.container.mt-4
+            = yield

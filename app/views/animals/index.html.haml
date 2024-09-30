@@ -1,0 +1,32 @@
+%h1 All Animals
+
+= link_to 'All Animals', animals_path, class: 'btn btn-secondary'
+= link_to 'Active Animals', animals_path(only_active: true), class: 'btn btn-primary'
+= link_to 'Archived Animals', animals_path(only_archived: true), class: 'btn btn-warning'
+
+%table.table.table-striped
+  %thead.thead-light
+    %tr
+      %th Name
+      %th Species
+      %th Birth date
+      %th Active?
+      %th{ colspan: "3" } Actions
+
+  %tbody
+    - @animals.each do |animal|
+      %tr
+        %td= animal.name
+        %td= animal.species
+        %td= animal.birth_date
+        %td= animal.active ? 'Active' : 'Archived'
+        %td= link_to 'View Details', animal, class: "btn btn-primary btn-sm"
+        %td= link_to 'Edit', edit_animal_path(animal), class: "btn btn-warning btn-sm"
+        -  if animal.active?
+          %td= button_to 'Archive', animal, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to archive #{animal.name}?" } }, class: "btn btn-danger btn-sm"
+        - else
+          %td= button_to 'Restore', restore_animal_path(animal), method: :patch, form: { data: { turbo_confirm: "Are you sure you want to restore #{animal.name}?" } }, class: "btn btn-success btn-sm"
+
+%br
+
+= link_to 'New Animal', new_animal_path, class: "btn btn-success"

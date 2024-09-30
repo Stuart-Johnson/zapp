@@ -1,0 +1,18 @@
+%p#notice= notice
+
+.card
+  .card-body
+    %h5.card-title= @food.name
+
+    %p
+      %b Supplier:
+      = @food.supplier
+    %p
+      %b Storage Location:
+      = @food.storage_location
+    %p
+      %b Treat:
+      = @food.treat ? 'Yes' : 'No'
+
+    = link_to 'Edit', edit_food_path(@food), class: 'btn btn-warning'
+    = link_to 'Back to Foods List', foods_path, class: 'btn btn-light'
