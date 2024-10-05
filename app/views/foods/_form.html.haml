@@ -1,26 +1,33 @@
-= form_for @food do |f|
-  - if @food.errors.any?
-    #error_explanation.alert.alert-danger
-      %h2= "#{pluralize(@food.errors.count, 'error')} prohibited this food from being saved:"
-      %ul
-        - @food.errors.full_messages.each do |message|
-          %li= message
+= turbo_frame_tag "modal" do
+  .modal-header
+    %h5.modal-title= "Editing #{@food.name}"
+    %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
+  .modal-body
+    = form_for @food do |f|
+      - if @food.errors.any?
+        #error_explanation.alert.alert-danger
+          %h2= "#{pluralize(@food.errors.count, 'error')} prohibited this food from being saved:"
+          %ul
+            - @food.errors.full_messages.each do |message|
+              %li= message
 
-  .mb-3
-    = f.label :name, class: "form-label"
-    = f.text_field :name, class: "form-control"
-  
-  .mb-3
-    = f.label :supplier, class: "form-label"
-    = f.text_field :supplier, class: "form-control"
-  
-  .mb-3
-    = f.label :storage_location, class: "form-label"
-    = f.text_field :storage_location, class: "form-control"
-  
-  .form-check.mb-3
-    = f.label :treat, class: "form-check-label"
-    = f.check_box :treat, class: "form-check-input"
+      .mb-3
+        = f.label :name, class: "form-label"
+        = f.text_field :name, class: "form-control"
+      
+      .mb-3
+        = f.label :supplier, class: "form-label"
+        = f.text_field :supplier, class: "form-control"
+      
+      .mb-3
+        = f.label :storage_location, class: "form-label"
+        = f.text_field :storage_location, class: "form-control"
+      
+      .form-check.mb-3
+        = f.label :treat, class: "form-check-label"
+        = f.check_box :treat, class: "form-check-input"
 
-  .actions
-    = f.submit 'Save', class: "btn btn-primary"
+      .actions
+        = f.submit 'Save', class: "btn btn-primary"
+  .modal-footer
+    %button.btn.btn-secondary{ type: "button", data: { "bs-dismiss": "modal" } } Close

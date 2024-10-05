@@ -27,9 +27,9 @@
             %li.nav-item
               = link_to "Home", root_path, class: "nav-link"
             %li.nav-item
-              = link_to "TBD", '', class: "nav-link"
+              = link_to "TBD", '', class: "nav-link disabled"
             %li.nav-item
-              = link_to "TBD", '', class: "nav-link"
+              = link_to "TBD", '', class: "nav-link disabled"
 
       .row
         / Left Sidebar
@@ -38,15 +38,20 @@
             %h5 Admin Controls:
             %ul.nav.nav-pills.flex-column
               %li.nav-item
-                = link_to "Daily Dashboard", '', class: "nav-link"
+                = link_to "Daily Dashboard", '', class: "nav-link disabled"
               %li.nav-item
-                = link_to "Diet Plans", '', class: "nav-link"
+                = link_to "Animals", animals_path, class: "nav-link"
               %li.nav-item
-                = link_to "All Animals", animals_path, class: "nav-link"
+                = link_to "Foods", foods_path, class: "nav-link"
               %li.nav-item
-                = link_to "All Foods", foods_path, class: "nav-link"
+                = link_to "Medications", '', class: "nav-link disabled"
 
         / Main Content Area
         .col-md-10
           %main.container.mt-4
+            .modal.fade{id: "bs_modal", tabindex: "-1"}
+              .modal-dialog
+                .modal-content
+                  = turbo_frame_tag "modal"
+
             = yield

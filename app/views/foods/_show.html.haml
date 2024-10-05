@@ -1,0 +1,16 @@
+= turbo_frame_tag "modal" do
+  .modal-header
+    %h5.modal-title= "#{@food.name} Details"
+    %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
+  .modal-body
+    %p
+      %b Supplier:
+      = @food.supplier
+    %p
+      %b Storage Location:
+      = @food.storage_location
+    %p
+      %b Treat:
+      = @food.treat ? 'Yes' : 'No'
+  .modal-footer
+    %button.btn.btn-secondary{ type: "button", data: { "bs-dismiss": "modal" } } Close

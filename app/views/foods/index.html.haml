@@ -1,6 +1,6 @@
 %h1 All Foods
 
-%table.table.table-striped
+%table.table.table-hover
   %thead.thead-light
     %tr
       %th Name
@@ -11,14 +11,7 @@
 
   %tbody
     - @foods.each do |food|
-      %tr
-        %td= food.name
-        %td= food.supplier
-        %td= food.storage_location
-        %td= food.treat ? 'Yes' : 'No'
-        %td= link_to 'View Details', food, class: "btn btn-primary btn-sm"
-        %td= link_to 'Edit', edit_food_path(food), class: "btn btn-warning btn-sm"
-        %td= button_to 'Remove', food, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-danger btn-sm"
+      = render partial: 'foods/food_row', locals: { food: food }
 
 %br
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :animals do
+    get 'diet', to: 'diet_entries#animal_diet', as: 'diet'
+    resources :diet_entries, except: [:index, :show]
     member do
       patch :restore
     end

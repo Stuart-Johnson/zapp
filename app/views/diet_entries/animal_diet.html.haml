@@ -1,0 +1,35 @@
+%h1= @animal.name + "'s Diet"
+
+- ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].each do |day|
+  .card.mb-4
+    .card-header
+      %h2= day
+    .card-body
+      - if @diet_entries.any? { |entry| entry.meals[day].present? }
+        .row
+          .col-md-4
+            %h3 Breakfast
+            - @diet_entries.each do |entry|
+              - if entry.meals[day] && entry.meals[day]['Breakfast'].present?
+                %p
+                  %strong= entry.food.name
+                  %span= ": #{entry.meals[day]['Breakfast']}"
+          .col-md-4
+            %h3 Dinner
+            - @diet_entries.each do |entry|
+              - if entry.meals[day] && entry.meals[day]['Dinner'].present?
+                %p
+                  %strong= entry.food.name
+                  %span= ": #{entry.meals[day]['Dinner']}"
+          .col-md-4
+            %h3 Snack
+            - @diet_entries.each do |entry|
+              - if entry.meals[day] && entry.meals[day]['Snack'].present?
+                %p
+                  %strong= entry.food.name
+                  %span= ": #{entry.meals[day]['Snack']}"
+      - else
+        %p.text-muted No diet entries for #{day}
+
+%h2.mt-5 Add a New Diet Entry
+= link_to 'Add Diet Entry', new_animal_diet_entry_path(@animal), class: 'btn btn-primary'

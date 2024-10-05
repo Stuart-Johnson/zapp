@@ -4,7 +4,7 @@ namespace :db do
     require 'faker'
 
     puts "Truncating Tables..."
-    ActiveRecord::Base.connection.truncate_tables(:foods, :animals, :servings)
+    ActiveRecord::Base.connection.truncate_tables(:foods, :animals, :diet_entries)
 
     puts "Creating sample foods..."
 
@@ -32,33 +32,43 @@ namespace :db do
 
     puts "100 random animals created!"
 
+    puts "Creating sample diets..."
 
-    # puts "Creating sample servings..."
+    Animal.find_each do |animal|
+      potential_foods = Food.all.to_a
 
-    # Animal.find_each do |animal|
-    #   potential_foods = Food.all.to_a
-    #   3.times do
-    #     food = potential_foods.sample
-    #     Serving.create!(
-    #       animal: animal,
-    #       food: food,
-    #       serving_size: Faker::Food.measurement,
-    #       meal: "Breakfast"
-    #     )
-    #     potential_foods.delete(food)
-    #   end
-    #   3.times do
-    #     food = potential_foods.sample
-    #     Serving.create!(
-    #       animal: animal,
-    #       food: food,
-    #       serving_size: Faker::Food.measurement,
-    #       meal: "Dinner"
-    #     )
-    #     potential_foods.delete(food)
-    #   end
-    # end
+      # Iterate over 3 different foods for sample purposes
+      3.times do
+        food = potential_foods.sample
 
-    # puts "Sample servings created!"
+        # Define the serving sizes for breakfast and dinner
+        breakfast_size = Faker::Food.measurement
+        dinner_size = Faker::Food.measurement
+
+        # Randomly select 4 days for this food
+        selected_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].sample(4)
+
+        # Build the meals structure for the selected days
+        meals_for_animal = {}
+        selected_days.each do |day|
+          meals_for_animal[day] = {
+            "Breakfast" => breakfast_size,
+            "Dinner" => dinner_size
+          }
+        end
+
+        # Create a DietEntry for this food and the associated meals on the selected days
+        DietEntry.create!(
+          animal: animal,
+          food: food,
+          meals: meals_for_animal
+        )
+
+        potential_foods.delete(food)
+      end
+    end
+
+
+    puts "Sample diets created!"
   end
 end

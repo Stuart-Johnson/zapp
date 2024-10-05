@@ -1,13 +1,17 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: %i[ show edit update destroy ]
 
-  # GET /foods or /foods.json
+  # GET /foods
   def index
-    @foods = Food.all
+    @foods = Food.all.order(:name)
   end
 
-  # GET /foods/1 or /foods/1.json
+  # GET /foods/1
   def show
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: 'foods/show', locals: { food: @food } }
+    end
   end
 
   # GET /foods/new
@@ -17,6 +21,10 @@ class FoodsController < ApplicationController
 
   # GET /foods/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.turbo_stream { render partial: 'foods/form', locals: { food: @food } }
+    end
   end
 
   # POST /foods or /foods.json
@@ -26,23 +34,30 @@ class FoodsController < ApplicationController
     respond_to do |format|
       if @food.save
         format.html { redirect_to @food, notice: "Food was successfully created." }
-        format.json { render :show, status: :created, location: @food }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /foods/1 or /foods/1.json
+  # PATCH/PUT /foods/1
   def update
     respond_to do |format|
       if @food.update(food_params)
         format.html { redirect_to @food, notice: "Food was successfully updated." }
-        format.json { render :show, status: :ok, location: @food }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("food_#{@food.id}", partial: 'foods/food_row', locals: { food: @food }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide'></turbo-stream>".html_safe)
+          ]
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @food.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", 
+            partial: 'foods/form', locals: { food: @food }
+          )
+        end
       end
     end
   end
@@ -53,7 +68,6 @@ class FoodsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to foods_path, status: :see_other, notice: "Food was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

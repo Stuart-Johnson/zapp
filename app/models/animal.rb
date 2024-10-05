@@ -1,6 +1,6 @@
 class Animal < ApplicationRecord
-  # has_many :diet_entries
-  # has_many :foods, through: :diet_entries
+  has_many :diet_entries, dependent: :destroy
+  has_many :foods, through: :diet_entries
 
   validates :name, presence: true, uniqueness: true
   validates :species, presence: true

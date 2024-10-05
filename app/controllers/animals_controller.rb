@@ -1,7 +1,7 @@
 class AnimalsController < ApplicationController
   before_action :set_animal, only: %i[ show edit update destroy restore ]
 
-  # GET /animals or /animals.json
+  # GET /animals
   def index
     if params[:only_active]
       @animals = Animal.active.order(:name)
@@ -12,7 +12,7 @@ class AnimalsController < ApplicationController
     end
   end
 
-  # GET /animals/1 or /animals/1.json
+  # GET /animals/1
   def show
   end
 
@@ -25,35 +25,31 @@ class AnimalsController < ApplicationController
   def edit
   end
 
-  # POST /animals or /animals.json
+  # POST /animals
   def create
     @animal = Animal.new(animal_params)
 
     respond_to do |format|
       if @animal.save
         format.html { redirect_to @animal, notice: "Animal was successfully created." }
-        format.json { render :show, status: :created, location: @animal }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @animal.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /animals/1 or /animals/1.json
+  # PATCH/PUT /animals/1
   def update
     respond_to do |format|
       if @animal.update(animal_params)
         format.html { redirect_to @animal, notice: "Animal was successfully updated." }
-        format.json { render :show, status: :ok, location: @animal }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @animal.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /animals/1 or /animals/1.json
+  # DELETE /animals/1
 
   def destroy
     if @animal.update(active: false)  # Mark the animal as archived
@@ -71,14 +67,6 @@ class AnimalsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @animal.destroy!
-
-  #   respond_to do |format|
-  #     format.html { redirect_to animals_path, status: :see_other, notice: "Animal was successfully destroyed." }
-  #     format.json { head :no_content }
-  #   end
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

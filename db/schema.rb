@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_28_063133) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_045719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_063133) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "diet_entries", force: :cascade do |t|
+    t.bigint "animal_id", null: false
+    t.bigint "food_id", null: false
+    t.jsonb "meals", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["animal_id"], name: "index_diet_entries_on_animal_id"
+    t.index ["food_id"], name: "index_diet_entries_on_food_id"
+  end
+
   create_table "foods", force: :cascade do |t|
     t.string "name"
     t.string "supplier"
@@ -31,4 +41,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_28_063133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "diet_entries", "animals"
+  add_foreign_key "diet_entries", "foods"
 end
