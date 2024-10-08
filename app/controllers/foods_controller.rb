@@ -46,7 +46,7 @@ class FoodsController < ApplicationController
           flash[:success] = "Successfully Edited #{@food.name}"
           render turbo_stream: [
             turbo_stream.replace("food_#{@food.id}", partial: 'foods/food_row', locals: { food: @food }),
-            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide'></turbo-stream>".html_safe)
+            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide' selector='#food_#{@food.id}'></turbo-stream>".html_safe)
           ]
         end
       else

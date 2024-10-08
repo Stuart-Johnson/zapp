@@ -17,20 +17,35 @@ document.addEventListener('turbo:before-stream-render', function(event) {
   if (event.target.getAttribute('method') === 'hide') {
     const modalElement = document.getElementById('turbo_bs_modal')
     const modal = bootstrap.Modal.getInstance(modalElement)
+
+    if (event.target.getAttribute('selector')) {
+      const selector = (event.target.getAttribute('selector') + " td.clickable_row")
+      initializeClickableTds(selector)
+    }
+    
     if (modal) {
       modal.hide()
     }
     event.preventDefault()
   }
+
+  if (event.target.getAttribute('method') === 'rebind') {
+    if (event.target.getAttribute('selector')) {
+      const selector = (event.target.getAttribute('selector') + " td.clickable_row")
+      initializeClickableTds(selector)
+    }
+    
+    // event.preventDefault()
+  }
 });
 
 document.addEventListener('turbo:load', () => {
   initializeTooltips()
+  initializeClickableTds()
 });
 
 document.addEventListener("DOMContentLoaded", function(event) { 
   initializeTooltips()
-  initializeClickableTds()
 });
 
 

@@ -8,9 +8,8 @@ export const initializeTooltips = () => {
   })
 }
 
-export const initializeClickableTds = () => {
-  // Add click event listener to all 'clickable-row' td elements
-  const clickableTds = document.querySelectorAll('td.clickable_row')
+export const initializeClickableTds = (selector = "td.clickable_row") => {
+  const clickableTds = document.querySelectorAll(selector)
   clickableTds.forEach(td => {
     td.addEventListener('click', function() {
       const url = this.closest('tr').dataset.url

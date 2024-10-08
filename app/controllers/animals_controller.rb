@@ -48,12 +48,11 @@ class AnimalsController < ApplicationController
   def update
     respond_to do |format|
       if @animal.update(animal_params)
-        # format.html { redirect_to @animal, notice: "#{@animal.name} was successfully updated." }
         format.turbo_stream do
           flash[:success] = "Successfully Edited #{@animal.name}"
           render turbo_stream: [
             turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
-            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide'></turbo-stream>".html_safe)
+            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide' selector='#animal_#{@animal.id}'></turbo-stream>".html_safe)
           ]
         end
       else
@@ -73,12 +72,18 @@ class AnimalsController < ApplicationController
       if @animal.update(active: false)
         format.turbo_stream do
           flash[:success] = "Successfully Archived #{@animal.name}"
-          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+          render turbo_stream: [
+            turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' method='rebind' selector='#animal_#{@animal.id}'></turbo-stream>".html_safe)
+          ]
         end
       else
         format.turbo_stream do
           flash[:alert] = "Failed to Archive #{@animal.name}"
-          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+          render turbo_stream: [
+            turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' method='rebind' selector='#animal_#{@animal.id}'></turbo-stream>".html_safe)
+          ]
         end
       end
     end
@@ -89,12 +94,18 @@ class AnimalsController < ApplicationController
       if @animal.update(active: true)
         format.turbo_stream do
           flash[:success] = "Successfully Restored #{@animal.name}"
-          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+          render turbo_stream: [
+            turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' method='rebind' selector='#animal_#{@animal.id}'></turbo-stream>".html_safe)
+          ]
         end
       else
         format.turbo_stream do
           flash[:alert] = "Failed to Restore #{@animal.name}"
-          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+          render turbo_stream: [
+            turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' method='rebind' selector='#animal_#{@animal.id}'></turbo-stream>".html_safe)
+          ]
         end
       end
     end
