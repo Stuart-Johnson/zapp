@@ -1,15 +1,18 @@
 .modal-header
-  %h5.modal-title= "#{@food.name} Details"
+  %h5.modal-title= "#{@animal.name} Details"
   %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
 .modal-body
   %p
-    %b Supplier:
-    = @food.supplier
+    %b Name:
+    = @animal.name
   %p
-    %b Storage Location:
-    = @food.storage_location
+    %b Species:
+    = @animal.species
   %p
-    %b Treat:
-    = @food.treat ? 'Yes' : 'No'
+    %b Birth date:
+    = @animal.birth_date
+  %p
+    %b Active:
+    = @animal.active ? 'Active' : 'Archived'
 .modal-footer
   %button.btn.btn-secondary{ type: "button", data: { "bs-dismiss": "modal" } } Close

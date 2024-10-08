@@ -130,6 +130,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
+    hot_flash (1.1)
     html2haml (2.3.0)
       erubis (~> 2.7.0)
       haml (>= 4.0)
@@ -242,6 +243,8 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
+    requestjs-rails (0.0.12)
+      railties (>= 6.1.0)
     rexml (3.3.7)
     rubocop (1.66.1)
       json (~> 2.3)
@@ -352,12 +355,14 @@ DEPENDENCIES
   debug
   faker
   haml-rails (~> 2.0)
+  hot_flash
   html2haml
   importmap-rails
   jbuilder
   pg
   puma (>= 5.0)
   rails (~> 7.2.1)
+  requestjs-rails
   rubocop-rails-omakase
   sassc-rails
   selenium-webdriver

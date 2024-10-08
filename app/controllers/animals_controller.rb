@@ -14,6 +14,9 @@ class AnimalsController < ApplicationController
 
   # GET /animals/1
   def show
+    respond_to do |format|
+      format.html { render partial: 'animals/show', locals: { animal: @animal }}
+    end
   end
 
   # GET /animals/new
@@ -23,6 +26,9 @@ class AnimalsController < ApplicationController
 
   # GET /animals/1/edit
   def edit
+    respond_to do |format|
+      format.html { render partial: 'animals/form', locals: { animal: @animal } }
+    end
   end
 
   # POST /animals
@@ -31,7 +37,7 @@ class AnimalsController < ApplicationController
 
     respond_to do |format|
       if @animal.save
-        format.html { redirect_to @animal, notice: "Animal was successfully created." }
+        format.html { redirect_to @animal, notice: "#{@animal.name} was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -42,9 +48,20 @@ class AnimalsController < ApplicationController
   def update
     respond_to do |format|
       if @animal.update(animal_params)
-        format.html { redirect_to @animal, notice: "Animal was successfully updated." }
+        # format.html { redirect_to @animal, notice: "#{@animal.name} was successfully updated." }
+        format.turbo_stream do
+          flash[:success] = "Successfully Edited #{@animal.name}"
+          render turbo_stream: [
+            turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal }),
+            turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide'></turbo-stream>".html_safe)
+          ]
+        end
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", 
+            partial: 'animals/form', locals: { animal: @animal }
+          )
+        end
       end
     end
   end
@@ -52,18 +69,34 @@ class AnimalsController < ApplicationController
   # DELETE /animals/1
 
   def destroy
-    if @animal.update(active: false)  # Mark the animal as archived
-      redirect_to animals_path, notice: "#{@animal.name} has been archived."
-    else
-      redirect_to animals_path, alert: "Unable to archive #{@animal.name}."
+    respond_to do |format|
+      if @animal.update(active: false)
+        format.turbo_stream do
+          flash[:success] = "Successfully Archived #{@animal.name}"
+          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+        end
+      else
+        format.turbo_stream do
+          flash[:alert] = "Failed to Archive #{@animal.name}"
+          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+        end
+      end
     end
   end
 
   def restore
-    if @animal.update(active: true)
-      redirect_to animals_path, notice: "#{@animal.name} has been restored."
-    else
-      redirect_to animals_path, alert: "Unable to restore #{@animal.name}."
+    respond_to do |format|
+      if @animal.update(active: true)
+        format.turbo_stream do
+          flash[:success] = "Successfully Restored #{@animal.name}"
+          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+        end
+      else
+        format.turbo_stream do
+          flash[:alert] = "Failed to Restore #{@animal.name}"
+          render turbo_stream: turbo_stream.replace("animal_#{@animal.id}", partial: 'animals/animal_row', locals: { animal: @animal })
+        end
+      end
     end
   end
 

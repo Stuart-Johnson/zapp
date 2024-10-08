@@ -13,6 +13,8 @@ gem 'sassc-rails'
 gem 'bootstrap'
 gem 'html2haml'
 gem 'faker'
+gem 'requestjs-rails'
+gem 'hot_flash'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

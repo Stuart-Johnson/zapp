@@ -49,9 +49,14 @@
         / Main Content Area
         .col-md-10
           %main.container.mt-4
-            .modal.fade{id: "bs_modal", tabindex: "-1"}
+            .modal.fade{id: "turbo_bs_modal", tabindex: "-1"}
               .modal-dialog
                 .modal-content
                   = turbo_frame_tag "modal"
 
+            .modal.fade{id: "bs_modal", tabindex: "-1"}
+              .modal-dialog
+                #bs_modal_content.modal-content
+
+            = render partial: "shared/flash"
             = yield
