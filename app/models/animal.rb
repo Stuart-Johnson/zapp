@@ -4,6 +4,7 @@ class Animal < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :species, presence: true
+  validates :birth_date, presence: true
 
   # Scope for active animals
   scope :active, -> { where(active: true) }

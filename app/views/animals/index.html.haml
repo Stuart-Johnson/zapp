@@ -1,8 +1,12 @@
 %h1 Animals
 
-= link_to 'All Animals', animals_path, class: 'btn btn-secondary'
-= link_to 'Active Animals', animals_path(only_active: true), class: 'btn btn-primary'
-= link_to 'Archived Animals', animals_path(only_archived: true), class: 'btn btn-warning'
+.btn-group
+  = link_to 'All Animals', animals_path, class: "btn btn-outline-primary #{'active' if @showing == 'both'}", data: {toggle: 'tooltip'}, title: "Click to list all animals"
+  = link_to 'Active Animals', animals_path(only_active: true), class: "btn btn-outline-primary #{'active' if @showing == 'active'}", data: {toggle: 'tooltip'}, title: "Click to list only active animals"
+  = link_to 'Archived Animals', animals_path(only_archived: true), class: "btn btn-outline-primary #{'active' if @showing == 'archived'}", data: {toggle: 'tooltip'}, title: "Click to list only archived animals"
+%br
+%br
+= link_to 'New Animal', new_animal_path, class: "btn btn-success", data: { turbo_frame: "modal" }
 
 %table.table.table-hover
   %thead.thead-light
@@ -16,7 +20,3 @@
   %tbody
     - @animals.each do |animal|
       = render partial: 'animals/animal_row', locals: { animal: animal }
-
-%br
-
-= link_to 'New Animal', new_animal_path, class: "btn btn-success"

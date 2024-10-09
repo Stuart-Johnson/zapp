@@ -16,4 +16,8 @@
 
 @import "bootstrap";
 
+@import "rails_bootstrap_forms.css";
 
+label.required:after {
+  content:" *";
+}

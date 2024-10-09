@@ -5,10 +5,13 @@ class AnimalsController < ApplicationController
   def index
     if params[:only_active]
       @animals = Animal.active.order(:name)
+      @showing = "active"
     elsif params[:only_archived]
       @animals = Animal.archived.order(:name)
+      @showing = "archived"
     else
       @animals = Animal.all.order(:name)
+      @showing = "both"
     end
   end
 
@@ -22,6 +25,9 @@ class AnimalsController < ApplicationController
   # GET /animals/new
   def new
     @animal = Animal.new
+    respond_to do |format|
+      format.html { render partial: 'animals/form', locals: { animal: @animal } }
+    end
   end
 
   # GET /animals/1/edit
@@ -37,9 +43,14 @@ class AnimalsController < ApplicationController
 
     respond_to do |format|
       if @animal.save
-        format.html { redirect_to @animal, notice: "#{@animal.name} was successfully created." }
+        flash[:success] = "#{@animal.name} was successfully created."
+        format.html { redirect_to action: "index" }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", 
+            partial: 'animals/form', locals: { animal: @animal }
+          )
+        end
       end
     end
   end

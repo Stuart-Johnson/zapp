@@ -84,6 +84,9 @@ GEM
     bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
+    bootstrap_form (5.4.0)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     brakeman (6.2.1)
       racc
     builder (3.3.0)
@@ -350,6 +353,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap
+  bootstrap_form (~> 5.4)
   brakeman
   capybara
   debug
