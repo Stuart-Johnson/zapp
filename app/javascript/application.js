@@ -34,8 +34,6 @@ document.addEventListener('turbo:before-stream-render', function(event) {
       const selector = (event.target.getAttribute('selector') + " td.clickable_row")
       initializeClickableTds(selector)
     }
-    
-    // event.preventDefault()
   }
 });
 
@@ -44,7 +42,7 @@ document.addEventListener('turbo:load', () => {
   initializeClickableTds()
 });
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function(event) {
   initializeTooltips()
 });
 
