@@ -13,6 +13,16 @@ class AnimalsController < ApplicationController
       @animals = Animal.all.order(:name)
       @showing = "both"
     end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("animals_container", render_to_string(action: :index, formats: [:html])),
+          turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide' selector='#animals_container'></turbo-stream>".html_safe)
+        ]
+      end
+    end
   end
 
   # GET /animals/1
@@ -41,11 +51,11 @@ class AnimalsController < ApplicationController
   def create
     @animal = Animal.new(animal_params)
 
-    respond_to do |format|
-      if @animal.save
-        flash[:success] = "#{@animal.name} was successfully created."
-        format.html { redirect_to action: "index" }
-      else
+    if @animal.save
+      flash[:success] = "#{@animal.name} was successfully created."
+      redirect_to action: "index"
+    else
+      respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("modal", 
             partial: 'animals/form', locals: { animal: @animal }

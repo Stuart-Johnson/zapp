@@ -21,6 +21,7 @@ document.addEventListener('turbo:before-stream-render', function(event) {
     if (event.target.getAttribute('selector')) {
       const selector = (event.target.getAttribute('selector') + " td.clickable_row")
       initializeClickableTds(selector)
+      initializeTooltips()
     }
     
     if (modal) {

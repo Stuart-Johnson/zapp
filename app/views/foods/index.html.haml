@@ -1,18 +1,17 @@
-%h1 All Foods
+#foods_container
+  %h1 All Foods
 
-%table.table.table-hover
-  %thead.thead-light
-    %tr
-      %th Name
-      %th Supplier
-      %th Storage Location
-      %th Treat?
-      %th{ colspan: "3" } Actions
+  = link_to 'New Food', new_food_path, class: "btn btn-success", data: { turbo_frame: "modal" }
 
-  %tbody
-    - @foods.each do |food|
-      = render partial: 'foods/food_row', locals: { food: food }
+  %table.table.table-hover
+    %thead.thead-light
+      %tr
+        %th Name
+        %th Supplier
+        %th Storage Location
+        %th Treat?
+        %th{ colspan: "3" } Actions
 
-%br
-
-= link_to 'New Food', new_food_path, class: "btn btn-success"
+    %tbody
+      - @foods.each do |food|
+        = render partial: 'foods/food_row', locals: { food: food }

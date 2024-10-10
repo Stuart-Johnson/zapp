@@ -4,6 +4,16 @@ class FoodsController < ApplicationController
   # GET /foods
   def index
     @foods = Food.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("foods_container", render_to_string(action: :index, formats: [:html])),
+          turbo_stream.append("modal", "<turbo-stream action='invoke' target='modal' method='hide' selector='#foods_container'></turbo-stream>".html_safe)
+        ]
+      end
+    end
   end
 
   # GET /foods/1
@@ -29,14 +39,21 @@ class FoodsController < ApplicationController
   def create
     @food = Food.new(food_params)
 
-    respond_to do |format|
-      if @food.save
-        format.html { redirect_to @food, notice: "#{@food.name} was successfully created." }
-      else
-        format.html { render :new, status: :unprocessable_entity }
+    if @food.save
+      flash[:success] = "#{@food.name} was successfully created."
+      redirect_to action: "index"
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", 
+            partial: 'foods/form', locals: { food: @food }
+          )
+        end
       end
     end
   end
+
+
 
   # PATCH/PUT /foods/1
   def update
