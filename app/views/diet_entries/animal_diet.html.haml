@@ -1,5 +1,9 @@
 %h1= @animal.name + "'s Diet"
 
+= link_to 'Back to Animals', animals_path, class: 'btn btn-secondary'
+%br
+%br
+
 - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].each do |day|
   .card.mb-4
     .card-header

@@ -4,7 +4,7 @@
   %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.birth_date
   %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.active ? 'Active' : 'Archived'
   %td= link_to 'Edit', edit_animal_path(animal), class: "btn btn-warning btn-sm", data: { turbo_frame: "modal", toggle: "tooltip" }, title: "Edit #{animal.name}"
-  %td= link_to 'View Diet', animal_diet_path(animal), class: 'btn btn-info btn-sm', title: "View #{animal.name}'s Diet Plan", data: {toggle: "tooltip"}
+  %td= link_to 'View/Edit Diet', animal_diet_path(animal), class: 'btn btn-info btn-sm', title: "View #{animal.name}'s Diet Plan", data: {toggle: "tooltip"}
   -  if animal.active?
     %td= button_to 'Archive', animal, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to archive #{animal.name}?" } }, class: "btn btn-danger btn-sm", title: "Archive #{animal.name}", data: {toggle: "tooltip"}
   - else
