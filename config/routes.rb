@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :species
   resources :animals do
     get 'diet', to: 'diet_entries#animal_diet', as: 'diet'
     resources :diet_entries, except: [:index, :show]
@@ -7,7 +8,8 @@ Rails.application.routes.draw do
     end
   end
   resources :foods
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  get 'daily_overview', to: 'dashboards#daily_overview'
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

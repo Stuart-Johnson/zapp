@@ -1,0 +1,15 @@
+.row
+  %h3.text-center.mt-3= @mealtime
+- @animals.each_slice(6).each do |row_of_animals|
+  .row.g-2.mt-1
+    - row_of_animals.each do |animal|
+      .col-2
+        .card.animal_column_wrapper.h-100
+          .card-header.text-center{style: "background-color: #{animal.species.color};"}
+            %h5.card-title= animal.name
+            %h6.text-secondary= "(#{animal.species.name})"
+          %ul.list-group.list-group-flush
+            - animal.breakfast_for_day(@today_name).each do |food, amount|
+              %li.list-group-item
+                %span.fw-bold= food + ":"
+                %span= amount

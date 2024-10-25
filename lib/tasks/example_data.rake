@@ -4,7 +4,7 @@ namespace :db do
     require 'faker'
 
     puts "Truncating Tables..."
-    ActiveRecord::Base.connection.truncate_tables(:foods, :animals, :diet_entries)
+    ActiveRecord::Base.connection.truncate_tables(:foods, :animals, :diet_entries, :species)
 
     puts "Creating sample foods..."
 
@@ -19,12 +19,23 @@ namespace :db do
 
     puts "100 random foods created!"
 
+    puts "Creating sample species..."
+
+    20.times do
+      Species.create!(
+        name: Faker::Creature::Animal.unique.name,
+        color: Faker::Color.unique.hex_color
+      )
+    end
+
+    puts "20 random species created!"
+
     puts "Creating sample animals..."
 
     100.times do
       Animal.create!(
         name: Faker::Name.unique.first_name,
-        species: Faker::Creature::Animal.name,
+        species: Species.all.sample,
         birth_date: Faker::Date.birthday(min_age: 1, max_age: 20),
         active: Faker::Boolean.boolean
       )

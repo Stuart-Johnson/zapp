@@ -11,8 +11,28 @@ class DietEntry < ApplicationRecord
   # Ensure a food is unique for the same animal and meal
   # validates :food_id, uniqueness: { scope: [:animal_id, :meal], message: "has already been designated for this animal and meal, edit the existing serving instead." }
 
-  DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   MEAL_OPTIONS = ['Breakfast', 'Dinner', 'Snack']
+
+  # Scope to get diet entries for today with Breakfast
+  scope :today_breakfast, -> {
+    today_name = Date.today.strftime('%A')
+    where("meals ->> ? IS NOT NULL", today_name)
+      .where("meals -> ? ->> 'Breakfast' IS NOT NULL", today_name)
+  }
+
+  # Scope to get diet entries for today with Snack
+  scope :today_snack, -> {
+    today_name = Date.today.strftime('%A')
+    where("meals ->> ? IS NOT NULL", today_name)
+      .where("meals -> ? ->> 'Snack' IS NOT NULL", today_name)
+  }
+
+  # Scope to get diet entries for today with Dinner
+  scope :today_dinner, -> {
+    today_name = Date.today.strftime('%A')
+    where("meals ->> ? IS NOT NULL", today_name)
+      .where("meals -> ? ->> 'Dinner' IS NOT NULL", today_name)
+  }
 
   private
 
@@ -20,7 +40,7 @@ class DietEntry < ApplicationRecord
   def meals_structure_valid?
     if meals.is_a?(Hash)
       meals.each do |day, meals_for_day|
-        unless DAYS_OF_WEEK.include?(day)
+        unless Date::DAYNAMES.include?(day)
           errors.add(:meals, "contains an invalid day: #{day}")
         end
 

@@ -1,6 +1,11 @@
-%h1= @animal.name + "'s Diet"
+%h1= "Diet/Feeding Schedule for #{@animal.name}"
+
+%hr
 
 = link_to 'Back to Animals', animals_path, class: 'btn btn-secondary'
+= link_to 'Add Diet Entry', new_animal_diet_entry_path(@animal), class: 'btn btn-primary'
+
+
 %br
 %br
 
@@ -34,6 +39,3 @@
                   %span= ": #{entry.meals[day]['Snack']}"
       - else
         %p.text-muted No diet entries for #{day}
-
-%h2.mt-5 Add a New Diet Entry
-= link_to 'Add Diet Entry', new_animal_diet_entry_path(@animal), class: 'btn btn-primary'

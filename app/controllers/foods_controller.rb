@@ -53,8 +53,6 @@ class FoodsController < ApplicationController
     end
   end
 
-
-
   # PATCH/PUT /foods/1
   def update
     respond_to do |format|

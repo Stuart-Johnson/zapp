@@ -1,0 +1,16 @@
+= form_for @species do |f|
+  - if @species.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@species.errors.count, "error")} prohibited this species from being saved:"
+      %ul
+        - @species.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :color
+    = f.text_field :color
+  .actions
+    = f.submit 'Save'

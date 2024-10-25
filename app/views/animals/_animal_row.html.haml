@@ -1,6 +1,6 @@
 %tr{id: "animal_#{animal.id}", data: { url: animal_path(animal) }}
   %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.name
-  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.species
+  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.species.name
   %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.birth_date
   %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View #{animal.name}'s details" }= animal.active ? 'Active' : 'Archived'
   %td= link_to 'Edit', edit_animal_path(animal), class: "btn btn-warning btn-sm", data: { turbo_frame: "modal", toggle: "tooltip" }, title: "Edit #{animal.name}"

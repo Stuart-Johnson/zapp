@@ -17,7 +17,7 @@ class AnimalsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create animal" do
     assert_difference("Animal.count") do
-      post animals_url, params: { animal: { active: @animal.active, birth_date: @animal.birth_date, name: @animal.name, species: @animal.species } }
+      post animals_url, params: { animal: { active: @animal.active, birth_date: @animal.birth_date, name: @animal.name, species: @animal.species.name } }
     end
 
     assert_redirected_to animal_url(Animal.last)
@@ -34,7 +34,7 @@ class AnimalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update animal" do
-    patch animal_url(@animal), params: { animal: { active: @animal.active, birth_date: @animal.birth_date, name: @animal.name, species: @animal.species } }
+    patch animal_url(@animal), params: { animal: { active: @animal.active, birth_date: @animal.birth_date, name: @animal.name, species: @animal.species.name } }
     assert_redirected_to animal_url(@animal)
   end
 

@@ -17,7 +17,7 @@ class AnimalsTest < ApplicationSystemTestCase
     check "Active" if @animal.active
     fill_in "Birth date", with: @animal.birth_date
     fill_in "Name", with: @animal.name
-    fill_in "Species", with: @animal.species
+    fill_in "Species", with: @animal.species.name
     click_on "Create Animal"
 
     assert_text "Animal was successfully created"
@@ -31,7 +31,7 @@ class AnimalsTest < ApplicationSystemTestCase
     check "Active" if @animal.active
     fill_in "Birth date", with: @animal.birth_date
     fill_in "Name", with: @animal.name
-    fill_in "Species", with: @animal.species
+    fill_in "Species", with: @animal.species.name
     click_on "Update Animal"
 
     assert_text "Animal was successfully updated"

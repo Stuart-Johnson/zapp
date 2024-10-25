@@ -22,6 +22,7 @@ services:
       - zapp_db
     environment:
       RAILS_ENV: development
+      TZ: America/New_York
 
 volumes:
   zapp_postgres_data:

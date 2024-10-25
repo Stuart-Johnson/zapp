@@ -23,8 +23,11 @@
           = link_to "CTL Animal Forest", root_path, class: "navbar-brand"
           %button.navbar-toggler{ type: "button", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, aria_controls: "navbarNav", aria_expanded: "false", aria_label: "Toggle navigation" }
             %span.navbar-toggler-icon
-          #navbarNav.collapse.navbar-collapse
-            %ul.navbar-nav.ms-auto
+          .collapse.navbar-collapse
+            - if @header_text
+              %div.navbar-text.m-auto
+                %h4.mb-0.text-white= @header_text
+            %ul.navbar-nav
               %li.nav-item
                 = link_to "Home", root_path, class: "nav-link"
               %li.nav-item
@@ -33,25 +36,10 @@
                 = link_to "TBD", '', class: "nav-link disabled"
 
       .row
-        / Left Sidebar
-        .col-md-2.bg-light
-          %div.d-flex.flex-column.p-3.sidebar
-            %h5 Admin Controls:
-            %ul.nav.nav-pills.flex-column
-              %li.nav-item
-                = link_to "Daily Dashboard", daily_overview_path, class: "nav-link"
-              %li.nav-item
-                = link_to "Animals", animals_path, class: "nav-link"
-              %li.nav-item
-                = link_to "Foods", foods_path, class: "nav-link"
-              %li.nav-item
-                = link_to "Medications", '', class: "nav-link disabled"
-
         / Main Content Area
-        .col-md-10
-          .container.mt-3
-            = render partial: "shared/flash"
-            = yield
+        .container-fluid
+          = render partial: "shared/flash"
+          = yield
       .row
         #modal_area
           .modal.fade{id: "turbo_bs_modal", tabindex: "-1"}

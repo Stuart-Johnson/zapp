@@ -1,0 +1,23 @@
+%h1 Listing species
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Color
+      %th
+      %th
+      %th
+
+  %tbody
+    - @species.each do |species|
+      %tr
+        %td= species.name
+        %td= species.color
+        %td= link_to 'Show', species
+        %td= link_to 'Edit', edit_species_path(species)
+        %td= link_to 'Destroy', species, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Species', new_species_path
