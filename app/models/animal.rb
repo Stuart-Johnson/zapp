@@ -3,8 +3,8 @@ class Animal < ApplicationRecord
   has_many :foods, through: :diet_entries
   belongs_to :species, required: true
 
-  validates :name, presence: true, uniqueness: true
-  # validates :species, presence: true
+  validates :name, presence: true, uniqueness: { scope: :species_id, message: "must be unique within the same species" }
+
   validates :birth_date, presence: true
 
   # Scope for active animals

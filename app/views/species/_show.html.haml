@@ -1,0 +1,15 @@
+.modal-header
+  %h5.modal-title= "#{@species.name} Details"
+  %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
+.modal-body
+  %p
+    %b Name:
+    = @species.name
+  %p
+    %b Color:
+    .color_box{style: "background-color: #{@species.color};"}
+  %p
+    %b Diet Type:
+    = @species.diet_type
+.modal-footer
+  %button.btn.btn-secondary{ type: "button", data: { "bs-dismiss": "modal" } } Close

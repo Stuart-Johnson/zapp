@@ -1,0 +1,7 @@
+%tr{id: "species_#{species.id}", data: { url: species_path(species) }}
+  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= species.name
+  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }
+    .color_box{style: "background-color: #{species.color}"}
+  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= species.diet_type
+  %td= link_to 'Edit', edit_species_path(species), class: "btn btn-warning btn-sm", data: { turbo_frame: "modal", toggle: "tooltip" }, title: "Edit #{species.name}"
+  %td= button_to 'Remove', species_path(species), method: :delete, form: { data: { turbo_confirm: 'Are you sure?', turbo_method: 'delete' } }, class: "btn btn-danger btn-sm", data: { toggle: "tooltip" }, title: "Delete #{species.name}"

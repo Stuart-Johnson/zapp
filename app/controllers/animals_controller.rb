@@ -35,9 +35,6 @@ class AnimalsController < ApplicationController
   # GET /animals/new
   def new
     @animal = Animal.new
-    respond_to do |format|
-      format.html { render partial: 'animals/form', locals: { animal: @animal } }
-    end
   end
 
   # GET /animals/1/edit
@@ -141,6 +138,6 @@ class AnimalsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def animal_params
-      params.require(:animal).permit(:name, :species, :birth_date, :active)
+      params.require(:animal).permit(:name, :species_id, :birth_date, :active)
     end
 end

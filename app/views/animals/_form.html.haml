@@ -5,7 +5,7 @@
       %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
     .modal-body
       = f.text_field :name
-      = f.text_field :species
+      = f.collection_select :species_id, Species.all, :id, :name
       = f.date_field :birth_date
       = f.check_box :active, switch: true
     .modal-footer

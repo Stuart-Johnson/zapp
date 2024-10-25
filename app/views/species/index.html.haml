@@ -1,23 +1,24 @@
-%h1 Listing species
+#species_container
+  %h1 Species
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Color
-      %th
-      %th
-      %th
+  .btn-group
+    = link_to 'All Species', species_index_path, class: "btn btn-outline-primary #{'active' if @showing == 'all'}", data: {toggle: 'tooltip'}, title: "Click to list all species"
+    = link_to 'Only Herbivores', species_index_path(only_herbivores: true), class: "btn btn-outline-primary #{'active' if @showing == 'only_herbivores'}", data: {toggle: 'tooltip'}, title: "Click to list only herbivores"
+    = link_to 'Only Carnivores', species_index_path(only_carnivores: true), class: "btn btn-outline-primary #{'active' if @showing == 'only_carnivores'}", data: {toggle: 'tooltip'}, title: "Click to list only carnivores"
+    = link_to 'Only Omnivores', species_index_path(only_omnivores: true), class: "btn btn-outline-primary #{'active' if @showing == 'only_omnivores'}", data: {toggle: 'tooltip'}, title: "Click to list only omnivores"
 
-  %tbody
-    - @species.each do |species|
+  %br
+  %br
+  = link_to 'New Species', new_species_path, class: "btn btn-success", data: { turbo_frame: "modal" }
+
+  %table.table.table-hover
+    %thead.thead-light
       %tr
-        %td= species.name
-        %td= species.color
-        %td= link_to 'Show', species
-        %td= link_to 'Edit', edit_species_path(species)
-        %td= link_to 'Destroy', species, method: :delete, data: { confirm: 'Are you sure?' }
+        %th Name
+        %th Color
+        %th Diet Type
+        %th{ colspan: "4" } Actions
 
-%br
-
-= link_to 'New Species', new_species_path
+    %tbody
+      - @species_list.each do |species|
+        = render partial: 'species/species_row', locals: { species: species }

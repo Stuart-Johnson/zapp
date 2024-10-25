@@ -1,16 +1,14 @@
-= form_for @species do |f|
-  - if @species.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@species.errors.count, "error")} prohibited this species from being saved:"
-      %ul
-        - @species.errors.full_messages.each do |message|
-          %li= message
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :color
-    = f.text_field :color
-  .actions
-    = f.submit 'Save'
+= turbo_frame_tag "modal" do
+  = bootstrap_form_for(@species, label_errors: true) do |f|
+    .modal-header
+      %h5.modal-title= "Editing #{@species.name}"
+      %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
+    .modal-body
+      = f.text_field :name
+      = f.color_field :color, class: "form-control-color"
+      = f.form_group :diet_type, label: { text: "Diet Type" } do
+        - Species::DIET_TYPE_OPTIONS.each do |option|
+          = f.radio_button :diet_type, option, label: option
+    .modal-footer
+      %button.btn.btn-secondary{ type: "button", data: { "bs-dismiss": "modal" } } Close
+      = f.primary 'Save'

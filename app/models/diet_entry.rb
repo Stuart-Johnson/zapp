@@ -8,9 +8,6 @@ class DietEntry < ApplicationRecord
   # Validate that the structure of meals is correct
   validate :meals_structure_valid?
 
-  # Ensure a food is unique for the same animal and meal
-  # validates :food_id, uniqueness: { scope: [:animal_id, :meal], message: "has already been designated for this animal and meal, edit the existing serving instead." }
-
   MEAL_OPTIONS = ['Breakfast', 'Dinner', 'Snack']
 
   # Scope to get diet entries for today with Breakfast
