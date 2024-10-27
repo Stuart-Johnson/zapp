@@ -24,7 +24,7 @@ namespace :db do
     20.times do
       Species.create!(
         name: Faker::Creature::Animal.unique.name,
-        color: '#ffffff',
+        color: ['#ffffff', '#ffffff', '#ffffff', Faker::Color.unique.hex_color].sample,
         diet_type: Species::DIET_TYPE_OPTIONS.sample
       )
     end

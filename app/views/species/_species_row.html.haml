@@ -1,7 +1,6 @@
 %tr{id: "species_#{species.id}", data: { url: species_path(species) }}
   %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }= species.name
   %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }
-    = species.color
     - if species.color.downcase == '#ffffff'
       Default (white)
     - else
