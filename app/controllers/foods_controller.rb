@@ -26,6 +26,9 @@ class FoodsController < ApplicationController
   # GET /foods/new
   def new
     @food = Food.new
+    respond_to do |format|
+      format.html { render partial: 'foods/form', locals: { food: @food } }
+    end
   end
 
   # GET /foods/1/edit

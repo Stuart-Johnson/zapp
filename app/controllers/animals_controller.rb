@@ -35,6 +35,9 @@ class AnimalsController < ApplicationController
   # GET /animals/new
   def new
     @animal = Animal.new
+    respond_to do |format|
+      format.html { render partial: 'animals/form', locals: { animal: @animal } }
+    end
   end
 
   # GET /animals/1/edit

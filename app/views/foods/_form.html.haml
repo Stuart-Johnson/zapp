@@ -1,7 +1,7 @@
 = turbo_frame_tag "modal" do
   = bootstrap_form_for(@food, label_errors: true) do |f|
     .modal-header
-      %h5.modal-title= "Editing #{@food.name}"
+      %h5.modal-title= @food.name ? "Editing #{@food.name}" : "New Food:"
       %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
     .modal-body
       = f.text_field :name

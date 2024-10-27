@@ -38,6 +38,9 @@ class SpeciesController < ApplicationController
   # GET /species/new
   def new
     @species = Species.new
+    respond_to do |format|
+      format.html { render partial: 'species/form', locals: { species: @species } }
+    end
   end
 
   # GET /species/1/edit
