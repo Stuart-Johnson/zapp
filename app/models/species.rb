@@ -4,7 +4,7 @@ class Species < ApplicationRecord
   DIET_TYPE_OPTIONS = ["Carnivore", "Herbivore", "Omnivore"]
 
   validates :name, presence: true, uniqueness: true
-  validates :color, presence: true, uniqueness: true
+  validates :color, presence: true, uniqueness: true, unless: -> { color.downcase == '#ffffff' }
   validates :diet_type, presence: true, :inclusion => { :in => DIET_TYPE_OPTIONS }
 
   # Scope for herbivore species

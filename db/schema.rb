@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_25_001622) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_27_182926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_25_001622) do
 
   create_table "species", force: :cascade do |t|
     t.string "name"
-    t.string "color"
+    t.string "color", default: "#FFFFFF"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "diet_type"

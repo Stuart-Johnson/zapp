@@ -26,3 +26,12 @@ label.required:after {
   width: 30px;
   height: 30px;
 }
+
+.clickable_row {
+  cursor: pointer;
+}
+
+.button_wrapper {
+  display: flex;
+  gap: 10px;
+}

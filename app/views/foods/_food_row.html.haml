@@ -1,7 +1,9 @@
 %tr{id: "food_#{food.id}", data: { url: food_path(food) }}
-  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= food.name
-  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= food.supplier
-  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= food.storage_location
-  %td.clickable_row{ style: 'cursor: pointer;', data: { toggle: "tooltip" }, title: "View details" }= food.treat ? 'Yes' : 'No'
-  %td= link_to 'Edit', edit_food_path(food), class: "btn btn-warning btn-sm", data: { turbo_frame: "modal", toggle: "tooltip" }, title: "Edit #{food.name}"
-  %td= button_to 'Remove', food_path(food), method: :delete, form: { data: { turbo_confirm: 'Are you sure?', turbo_method: 'delete' } }, class: "btn btn-danger btn-sm", data: { toggle: "tooltip" }, title: "Delete #{food.name}"
+  %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }= food.name
+  %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }= food.supplier
+  %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }= food.storage_location
+  %td.clickable_row{ data: { toggle: "tooltip" }, title: "View details" }= food.treat ? 'Yes' : 'No'
+  %td
+    .button_wrapper
+      = link_to 'Edit', edit_food_path(food), class: "btn btn-warning btn-sm", data: { turbo_frame: "modal", toggle: "tooltip" }, title: "Edit #{food.name}"
+      = button_to 'Remove', food_path(food), method: :delete, form: { data: { turbo_confirm: 'Are you sure?', turbo_method: 'delete' } }, class: "btn btn-danger btn-sm", data: { toggle: "tooltip" }, title: "Delete #{food.name}"

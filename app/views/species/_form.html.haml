@@ -5,7 +5,7 @@
       %button.btn-close{ type: "button", data: { "bs-dismiss": "modal" }, aria: { label: "Close" } }
     .modal-body
       = f.text_field :name
-      = f.color_field :color, class: "form-control-color"
+      = f.color_field :color, class: "form-control-color", append: button_to("Reset Color", '', class: "btn btn-secondary color_reset")
       = f.form_group :diet_type, label: { text: "Diet Type" } do
         - Species::DIET_TYPE_OPTIONS.each do |option|
           = f.radio_button :diet_type, option, label: option

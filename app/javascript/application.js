@@ -46,6 +46,3 @@ document.addEventListener('turbo:load', () => {
 document.addEventListener("DOMContentLoaded", function(event) {
   initializeTooltips()
 });
-
-
-
